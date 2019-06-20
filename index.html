@@ -38,11 +38,11 @@
           document.getElementById("conditionNumber").appendChild(patientConditionNumber);
 
           for (var i = 0 ; i < patientObj.conditions.length; i++) {
-            var patientConditionList = document.createElement('li'); //create li of patient conditions
-            var condition = patientObj.conditions[i]; // get a condition
+            var patientConditionList = document.createElement('li'); //create <li> node of patient conditions
+            var condition = patientObj.conditions[i]; // get the condition
             var textnode = document.createTextNode(condition); // create text node of condition
-            patientConditionList.appendChild(textnode); //append text to <ul>
-            document.getElementById("conditionList").appendChild(patientConditionList);
+            patientConditionList.appendChild(textnode); //append the text to <li>
+            document.getElementById("conditionList").appendChild(patientConditionList); //append <li> to <ul> with id="conditionList"
           }
         }
     };
