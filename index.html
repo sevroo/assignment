@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  
+<body>
+  <div id="name"> Name of patient: </div>
+  <div id="organization"> Organization name: </div>
+  <div id="gender"> Gender: </div>
+  <div id="conditionNumber"> Number of conditions they have: </div>
+  <div id="conditions"> List of all conditions: </div>
+  <ul id="conditionList"> </ul>
+
+  <script>
+    var xhttp = new XMLHttpRequest();
+    var url = "patient.json"
+
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          console.log(JSON.parse(xhttp.responseText));
+          var patientObj = JSON.parse(xhttp.responseText);
+
+          var patientName = document.createElement("text");
+          patientName.innerHTML = patientObj.name[0].given[0] + " " + patientObj.name[0].family;
+          document.getElementById("name").appendChild(patientName);
+
+          var patientOrganization = document.createElement("text");
+          patientOrganization.innerHTML = patientObj.managingOrganization.display;
+          document.getElementById("organization").appendChild(patientOrganization);
+
+          var patientGender = document.createElement("text");
+          patientGender.innerHTML = patientObj.gender;
+          document.getElementById("gender").appendChild(patientGender);
+
+          var patientConditionNumber = document.createElement("text");
+          patientConditionNumber.innerHTML = patientObj.conditions.length;
+          document.getElementById("conditionNumber").appendChild(patientConditionNumber);
+
+          for (var i = 0 ; i < patientObj.conditions.length; i++) {
+            var patientConditionList = document.createElement('li'); //create li of patient conditions
+            var condition = patientObj.conditions[i]; // get a condition
+            var textnode = document.createTextNode(condition); // create text node of condition
+            patientConditionList.appendChild(textnode); //append text to <ul>
+            document.getElementById("conditionList").appendChild(patientConditionList);
+          }
+        }
+    };
+    xhttp.open("GET", url, true);
+    xhttp.send();
+  </script>
+</body>
+</html>
